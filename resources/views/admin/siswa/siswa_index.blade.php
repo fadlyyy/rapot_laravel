@@ -11,6 +11,7 @@
             <table class="table table-bordered" id="table-siswa">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>nis</th>
                         <th>nama</th>
                         <th>kelas</th>
@@ -35,9 +36,10 @@
             serverSide: true,
             ajax: "{{ url('siswa/yajra') }}",
             columns: [
-                {data: 'nis', name: 'siswa.nis'},
-                {data: 'nama', name: 'siswa.nama'},
-                {data: 'kelas', name: 'kelas'}
+                {data: 'rownum', name: 'rownum'},
+                {data: 'nis', name: 'nis'},
+                {data: 'nama', name: 'nama'},
+                {data: 'kelas', name: 'kelas.kelas'}
             ]
         });
     })
