@@ -52,6 +52,38 @@ class Siswa_controller extends Controller
         return redirect('siswa');
     }
 
+    public function edit($nis)
+    {
+        $title = 'Edit Siswa';
+        $siswa = Siswa::where('nis',$nis)->first();
+        $kelas = \DB::table('m_kelas')->orderBy('nama','asc')->get();
+        $kelasnya = \DB::table('kelas')->where('nis',$nis)->value('kelas');
+        $tahun = \DB::table('kelas')->where('nis',$nis)->value('tahun');
+
+        return view('admin.siswa.siswa_edit',compact('title','siswa','kelas','kelasnya','tahun'));
+    }
+
+    public function update(Request $request, $nis)
+    {
+        $nis = $request->nis;
+        $nama = $request->nama;
+        $tahun = $request->tahun;
+        $kelas = $request->kelas;
+
+        DB::table('siswa')->where('nis',$nis)->update([
+            'nis'=>$nis,
+            'nama'=>$nama
+        ]);
+
+        DB::table('kelas')->where('nis',$nis)->update([
+            'kelas'=>$kelas
+        ]);
+
+        Session::flash('pesan','Siswa berhasil diedit');
+
+        return redirect('siswa');
+    }
+
     public function yajra(Request $request)
     {
         DB::statement(DB::raw('set @rownum=0'));
@@ -67,6 +99,8 @@ class Siswa_controller extends Controller
             $datatables->filterColumn('rownum', 'whereRaw', '@rownum  + 1 like ?', ["%{$keyword}%"]);
         }
 
-        return $datatables->make(true);
+        return $datatables->addColumn('action2', function ($siswas) {
+            return '<a href="'.url('siswa/edit/'.$siswas->nis).'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+        })->rawColumns(['action2'])->make(true);
     }
 }

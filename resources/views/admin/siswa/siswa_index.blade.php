@@ -16,6 +16,7 @@
                         <th>nis</th>
                         <th>nama</th>
                         <th>kelas</th>
+                        <th>action</th>
                     </tr>
                 </thead>
             </table>
@@ -46,7 +47,8 @@
                 {data: 'rownum', name: 'rownum'},
                 {data: 'nis', name: 'nis'},
                 {data: 'nama', name: 'nama'},
-                {data: 'kelas', name: 'kelas.kelas'}
+                {data: 'kelas', name: 'kelas.kelas'},
+                {data: 'action2', name: 'action2', orderable: false, searchable: false}
             ]
         });
     })
