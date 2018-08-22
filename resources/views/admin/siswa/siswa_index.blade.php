@@ -8,6 +8,7 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="box">
+            <a href="{{url('siswa/add')}}" class="btn btn-block btn-primary">Tambah Siswa</a>
             <table class="table table-bordered" id="table-siswa">
                 <thead>
                     <tr>
@@ -31,6 +32,12 @@
 
 <script>
     $(document).ready(function(){
+        var flash = "{{Session::has('pesan')}}";
+        if(flash){
+            var pesan = "{{Session::get('pesan')}}";
+            alert(pesan);
+        }
+
         $('#table-siswa').DataTable({
             processing: true,
             serverSide: true,
